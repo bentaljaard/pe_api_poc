@@ -32,6 +32,13 @@ static_resources:
                     - name: "x-opco"
                       exact_match: "ie"
                 route: { host_rewrite: myapp, cluster: ie_cluster, timeout: 60s }
+              - match:
+                  prefix: "/nl/"
+                route: { prefix_rewrite: "/", host_rewrite: myapp, cluster: nl_cluster, timeout: 60s }
+              - match:
+                  prefix: "/ie/"
+                route: { prefix_rewrite: "/", host_rewrite: myapp, cluster: ie_cluster, timeout: 60s }
+
           http_filters:
           - name: envoy.router
   clusters:
